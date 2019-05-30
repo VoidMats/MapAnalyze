@@ -1,0 +1,9 @@
+**/node_modules
+**/package-lock.json
+grid.json
+**/.cache
+**/dist
+config.json
+.vs*
+**/src_test/geckodriver.log
+virtualenv_liu.txt
