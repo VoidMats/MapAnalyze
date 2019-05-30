@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>WoodFinder</title>
+  <link rel="icon" href="logo_tree.ico">
+  <link href="./style.css" rel="stylesheet" type="text/css">
+  <link href="./styles/toggle_button.css" rel="stylesheet" type="text/css">
+  <!--Bootstrap-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+  integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="sidebarMenu" class="sidebar">
+    <div id="settingButton">
+      <div class="text-right settingAlignButton">
+        <button type="button" id="setting" class="btn btn-outline-light">
+          <i class="fas fa-cog"></i>
+        </button>
+        <button type="button" id="information" class="btn btn-outline-light">
+          <i class="fas fa-info-circle"></i>
+        </button>
+      </div>
+      <div class="closebtn" id="btnCloseSidebar">&times;</div>
+    </div>
+    <br>
+    <ul class="nav .justify-content-center">
+      <!--nav-tabs-->
+      <li class="nav-item">
+        <a class="nav-link active" id="tabSidebarMap">
+          <h6 style="text-align: center">Polygons</h6>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="tabSidebarNetwork">
+          <h6 style="text-align: center">Network</h6>
+        </a>
+      </li>
+    </ul>
+    <br>
+    <!-- Tab for polygons -->
+    <div id="tabMenuPolygons" class="m-1">
+
+
+      <h6 style="text-align: center"><u>Auto-choose class</u></h6>
+      <label class="switch">
+        <input type="checkbox" id="polygonDrawModeToggleButton">
+        <span class="slider round"></span>
+      </label>
+      <button class="btn btn-primary" id="openAddPolygonClassModal">Manage Classes</button>
+      <select id="polygonClassAutoChoice" class="form-control"></select>
+      <br>
+      <br>
+      <hr class="breakline">
+      <div id="polygonsListDiv">
+
+        <h4 style="text-align: center"><u>Polygons</u></h4>
+
+      </div>
+      <br>
+      <hr class="breakline">
+
+      <div class="networkBtnPairs">
+        <button class="btn btn-primary m-1" id="downloadPolygons">Download</button>
+        <button class="btn btn-primary m-1" id="openUploadPolygonsModal" type="file">Upload</button>
+      </div>
+      <button class="btn btn-primary fixedwidth" id="clearMapButton">Clear Map</button>
+      <br><br><br>
+
+    </div>
+
+
+    <!-- Tab for Network-->
+    <div id="tabMenuNetwork" style="display: none;">
+      <h4 style="text-align: center"><u>Network</u></h4>
+
+      <br>
+      <div class="networkBtnPairs">
+        <input class="btn btn-primary m-1" id="openAddLayerModal" type="button" value="Add layer">
+        <input class="btn btn-primary m-1" id="displayAttributesButton" type="button" value="Attributes">
+      </div>
+      <div class="networkBtnPairs">
+        <input class="btn btn-primary m-1" id="train" type="button" value="Train">
+        <input class="btn btn-primary m-1" id="predict" type="button" value="Predict">
+      </div>
+      <div class="inputLists">
+        <div class="epochLearningRate">
+          <div class="form-group m-1">
+            <label for="sel1">Epochs:</label><br>
+            <input id="epochsChoice" type="number" placeholder="Learning rate" value="20">
+          </div>
+          <div class="form-group m-1">
+            <label for="sel1">Learning Rate:</label><br>
+            <input id="learningRate" type="number" step="0.1" placeholder="Learning rate" min=0 value="0.2">
+          </div>
+        </div>
+        <div class="form-group m-1">
+          <label for="sel1">Loss:</label><br>
+          <input id="lossChoice" type="text" placeholder="Learning rate" value="meanSquaredError">
+        </div>
+        <div class="form-group m-1">
+          <label for="sel1">Optimizer:</label>
+          <select class="form-control" id="optimizerChoice">
+            <option>sgd</option>
+            <option>momentum</option>
+            <option>adagrad</option>
+            <option>adadelta</option>
+            <option>adam</option>
+            <option>adamax</option>
+            <option>rmsprop</option>
+          </select>
+        </div>
+
+      </div>
+      <hr class="breakline">
+      <h6 style="text-align: center"><u id="layersText">Layers</u></h6>
+      <ol id="allLayers" class="list-group"></ol>
+      <hr class="breakline">
+      <br>
+      <h6 style="text-align: center"><u>Network Settings</u></h6>
+      <div class="networkBtnPairs">
+        <input class="btn btn-primary m-1" id="saveNetwork" type="button" value="Download">
+        <input class="btn btn-primary m-1" id="uploadNetwork" type="button" value="Upload">
+      </div>
+      <h6 style="text-align: center"><u>Network</u></h6>
+      <div class="networkBtnPairs">
+        <input class="btn btn-primary m-1" id="openSaveNetworkModalButton" type="button" value="Save">
+        <input class="btn btn-primary m-1" id="openUploadTrainedNetworkModalButton" type="button" value="Upload">
+      </div>
+      <br>
+    </div>
+  </div>
+  <div id="openSidebar">
+    <button class="openbtn" id="btnOpenSidebar">&#9776; Menu</button>
+  </div>
+  <div id="map"></div>
+
+  <!-- Add polygon class modal -->
+  <div class="modal fade" id="addPolygonClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add classes for polygons</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <h6>Add new polygon class</h6>
+        <div class="container">
+          <div id="" class="row">
+            <input id="inputPolygonClass" type="text" class="form-control col" maxlength="17"
+            placeholder="Class name">
+            <button id="addPolygonClass" class="btn btn-primary" type="button" data-toggle="popover"
+            data-trigger="focus" title="Missing category name" data-content="blabla">Add</button>
+          </div>
+        </div>
+        <br>
+        <h6>Existing classes</h6>
+        <ul id="polygonClassList" class="list-group">
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog add class name -->
+<div class="modal fade" id="setPolygonCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Pick a category for this polygon</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <select id="classes" class="form-control">
+      </select>
+      <br>
+      <h6>Create a new category</h6>
+      <div class="container">
+        <div id="newCategoryRow" class="row">
+          <input id="newPolygonCategory" type="text" class="form-control col" maxlength="17"
+          placeholder="Category name">
+          <button id="addClassName" class="btn btn-primary" type="button" data-toggle="popover" data-trigger="focus"
+          title="Missing category name" data-content="blabla">Add</button>
+        </div>
+      </div>
+      <br>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="" id="checkTrainPolygon">
+          Training area</label>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closePolygonModal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="savePolygon">Save polygon</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog save networksetting-->
+<div class="modal fade" id="saveNetworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Select file name</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filename:</div>
+        </div>
+        <input type="text" class="form-control" id="jsonFileName" placeholder="Filename" aria-label="Filename"
+        aria-describedby="basic-addon1">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" id="btnCloseNetworkModal" data-dismiss="modal">Close</button>
+      <a id="hrefNetworkModal" href="javascript:void(0)" download="data.txt"><button type="button"
+        class="btn btn-primary" id="btnSaveNetworkModal">Save file</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog save attributesModal-->
+<div class="modal fade" id="attributeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" id="attributesModalDialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Attributes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container" id="attributesModalBody">
+        <h5>Check attributes you want to train by:</h5>
+        <p id="noAttributeText" style="display:none;"> No attributes found </p>
+        <div id="attributesColumnsHeadline">
+          <label id="checkboxAllAttributes"><input class="attributesAllCheckbox" type="checkbox" value=" Check/Uncheck all"> Check/Uncheck all<p class="attributeExampleText"></p></label>
+          <p id="labelMinMax">Toggle custom min/max:</p>
+        </div>
+        <br>
+        <div id="attributeListContainer" class="row"></div>
+        <div id="customAttributeField" class="row"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCloseAttributesModal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnSaveAttributes">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog upload networksetting -->
+<div class="modal fade" id="uploadNetworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Select file</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <input id="uploadedNetworkFile" type="file"></input>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" id="btnCloseNetworkModal" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" id="btnUploadNetwork" data-dismiss="modal">Upload</button>
+      <!-- <a id="hrefSavePolygonsModal" download="data.txt"><button type="button" class="btn btn-primary" id="savePolygonsBtn">Save file</button></a> -->
+    </div>
+  </div>
+</div>
+</div>
+
+  <!-- Dialog download polygons -->
+  <div class="modal fade" id="downloadPolygonsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Pick file name</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">Filename:</div>
+            </div>
+            <input type="text" class="form-control" id="geoJsonFileName" placeholder="Filename" aria-label="Filename"
+              aria-describedby="basic-addon1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnClosePolygonDownload" data-dismiss="modal">Close</button>
+          <a id="hrefSavePolygonsModal" download="data.txt"><button type="button" class="btn btn-primary"
+              id="savePolygonsBtn">Save file</button></a>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dialog download trained network -->
+<div class="modal fade" id="downloadTrainedNetworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pick file name</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Filename:</div>
+          </div>
+          <input type="text" class="form-control" id="networkFileName" placeholder="Filename" aria-label="Filename" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a id="hrefTrainedNetworkModal" href="#"><button type="button" class="btn btn-primary" id="saveTrainedNetworkButton">Save file</button></a>
+        <!--<a id="hrefNetworkModal" href="javascript:void(0)" download="data.txt"><button type="button" class="btn btn-primary" id="btnSaveNetworkModal">Save file</button></a>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Dialog upload trained network -->
+<div class="modal fade" id="uploadTrainedNetworkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Choose file to upload</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <div class="input-group-prepend" id="uploadTrainedNetworkSelectors">
+            <h6>Network JSON file</h6>
+            <input id="uploadedTrainedNetworkJSONFile" type="file"></input>
+            <br/>
+            <br/>
+            <h6>Network Weights file</h6>
+            <input id="uploadedTrainedNetworkWeightsFile" type="file"></input>
+            <br/>
+            <br/>
+            <h6>Network Params file</h6>
+            <input id="uploadedTrainedNetworkParams" type="file"></input>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnUploadTrainedNetwork" data-dismiss="modal">Upload</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Dialog upload polygons -->
+  <div class="modal fade" id="uploadPolygonsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Choose file to upload</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <input id="uploadedPolygonsFile" type="file"></input>
+            </div>
+          </div>
+          <br>
+          <div>
+            <h6>Default Class Name:</h6>
+            <input id="defaultPolygonClassInput" type="text" class="form-control col" maxlength="17" placeholder="Default Polygon Class">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnClosePolygonUpload" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnUploadPolygons" data-dismiss="modal">Upload</button>
+        </div>
+  </div>
+</div>
+</div>
+
+<!-- Dialog add layer -->
+<div class="modal fade" id="setNode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="layerLabel">Create new layer</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input id="units" type="number" placeholder="Numbers of nodes" min=1>
+      <div class="form-group">
+        <label for="sel1">Activation:</label>
+        <select class="form-control" id="activationChoice">
+          <option value='elu'>elu</option>
+          <option value='hardSigmoid'>hardSigmoid</option>
+          <option value='linear'>linear</option>
+          <option value='relu'>relu</option>
+          <option value='relu6'>relu6</option>
+          <option value='selu'>selu</option>
+          <option value='sigmoid'>sigmoid</option>
+          <option value='softmax'>softmax</option>
+          <option value='softplus'>softplus</option>
+          <option value='softsign'>softsign</option>
+          <option value='tanh'>tanh</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button id="addLayer" type="button" class="btn btn-primary">Add</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modify layer -->
+<div class="modal fade" id="modifyLayerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Modify layer</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input id="modifyUnits" type="number" placeholder="Numbers of nodes" min=1>
+      <div class="form-group">
+        <label for="sel1">Activation:</label>
+        <select class="form-control" id="modifyActivationChoice">
+          <option value='elu'>elu</option>
+          <option value='hardSigmoid'>hardSigmoid</option>
+          <option value='linear'>linear</option>
+          <option value='relu'>relu</option>
+          <option value='relu6'>relu6</option>
+          <option value='selu'>selu</option>
+          <option value='sigmoid'>sigmoid</option>
+          <option value='softmax'>softmax</option>
+          <option value='softplus'>softplus</option>
+          <option value='softsign'>softsign</option>
+          <option value='tanh'>tanh</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button id="saveModifyLayerButton" type="button" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Setting Modal -->
+<div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Change configuration</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="input-group m-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Url:</div>
+          </div>
+          <input type="text" class="form-control" id="settingUrl" placeholder="Server url" aria-label="url"
+          aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group m-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Apikey:</div>
+          </div>
+          <input type="text" class="form-control" id="settingApikey" placeholder="Server token" aria-label="url"
+          aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group m-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Geometrycolumn:</div>
+          </div>
+          <input type="text" class="form-control" id="settingGeometry" placeholder="wkb_geometry" aria-label="url"
+          aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group m-1">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Maxlimit:</div>
+          </div>
+          <input type="text" class="form-control" id="settingLimit" placeholder="100000" aria-label="url"
+          aria-describedby="basic-addon1">
+        </div>
+        <div class="form-check m-2">
+          <input class="form-check-input" type="checkbox" value="" id="settingRemember">
+          <label class="form-check-label" for="settingRemember">
+            Remember configuration settings
+          </label>
+        </div>
+        <hr>
+        <label class="my-1 ml-2">Select file for upload</label>
+        <div class="input-group m-1">
+          <div class="input-group-prepend">
+            <input id="ConfigFile" type="file"></input>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" id="btnCloseSettingModal" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-secondary" id="btnClearSettingsModal">Clear</button>
+      <a id="hrefSettingModal" href="" download=""><button type="button"
+        class="btn btn-secondary" id="btnSaveSettingModal">Download</button></a>
+        <button type="button" class="btn btn-secondary" id="btnUploadSettingsModal">Upload</button>
+        <button type="button" class="btn btn-primary" id="btnSetSettingModal" data-dismiss="modal">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Information Modal -->
+<div class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"><i class="fas fa-info-circle"></i> Information</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <h4> <a href="https://docs.google.com/document/d/1MZjuvtoDjmEufToiK6mx5Q4k1zOJkks60SEwRQPSbS0/edit?usp=sharing"> <i class="far fa-file-alt"></i> User manual</a> </h4>
+      <hr>
+      <h6> This project was created by following students: </h6>
+      <ul class="list-group">
+        <li class="list-group-item">Pia Løtvedt</li>
+        <li class="list-group-item">Eric Östholm</li>
+        <li class="list-group-item">Philip Boodé</li>
+        <li class="list-group-item">Mats Eriksson</li>
+        <li class="list-group-item">Anton Karlsson</li>
+        <li class="list-group-item">Christian Rosenkilde</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" id="btnCloseInformationModal" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Modal for showing timeleft while training -->
+<div class="modal js-loading-bar traningModal" id="trainingModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center><p id="timeLeftTraining"></p></center>
+        <div class="progress progress-popup">
+          <div class="progress-bar trainingBar animate" id="trainingBar"></div>
+        </div>
+        <center><p id="loss"></p></center>
+        <center><p id="accuracy"></p></center>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for showing progress during predict -->
+<div class="modal js-loading-bar predictModal" id="predictModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <center><p id="timeLeftPredict"></p></center>
+        <div class="progress progress-popup">
+          <div class="progress-bar predictBar animate" id="predictBar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="./js/index.js"></script>
+
+</body>
+
+</html>

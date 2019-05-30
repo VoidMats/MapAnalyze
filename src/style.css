@@ -1,0 +1,295 @@
+body {
+  margin: 0;
+}
+#map {
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+#menu{
+  display: flex;
+}
+#nnMenu{
+  padding: 2%;
+  /*padding-top: 2%;
+  padding-left: 2%;*/
+  width: 50%;
+}
+#mapMenu{
+  padding: 2%;
+  width: 50%;
+}
+#addClassName {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.modifyLayerButton{
+    margin-right: 1%;
+
+}
+
+#polygonClassAutoChoice{
+  display: none;
+}
+
+.list-group{
+  margin-top: 1%;
+  margin-bottom: 1% !important;
+}
+.removeLayerButton{
+  margin-right: 0.5%;
+}
+/*.removeLayerButton, .polygonRemoveButton{
+  float: right;
+}*/
+
+.polygonClassRemoveButton {
+  float: right;
+}
+
+.polygonLi {
+  justify-content: space-between !important;
+  flex-direction: row !important;
+  align-items: baseline !important;
+  display: flex !important;
+  background-color: rgba(77, 77, 77, 0.3) !important;
+}
+
+.layerText{
+}
+
+#allLayers .listTemplate.list-group-item{
+  display: flex !important;
+  background-color: rgba(77, 77, 77, 0.3) !important;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: rgba(17, 17, 17, 0.8);
+  color: rgb(137, 214, 134);
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.sidebar .nav-item {
+  padding: auto;
+  flex: 1;
+  display: inline;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.sidebar a:hover {
+  color: #1e9b0b;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.openbtn {
+  font-size: 20px;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  position: fixed;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+.collapseGroup {
+  margin-left: 3%;
+  color: rgb(137, 214, 134);
+}
+
+.collapseGroup a:hover {
+  color: #1e9b0b;
+}
+
+/* classes for attributelist */
+.attributeList{
+  width: 50%;
+  height: 35px;
+  background-color: white;
+}
+
+.attributeCheckboxes{
+  margin-right: 5px;
+}
+
+#attributesAllCheckbox {
+  margin-right: 2%;
+}
+
+#checkboxAllAttributes {
+  width: 50%;
+}
+
+#attributesModalBody {
+  padding: 30px;
+}
+
+#attributesColumnsHeadline {
+  display: flex;
+  flex-direction: row;
+}
+
+.attributeMinMaxSwitchDiv {
+  padding-right: 20px;
+}
+
+.attributeMinMaxDiv {
+  padding-left: 30px;
+  width: 50%;
+  display: flex;
+}
+
+.attributeMinMaxInputDiv {
+  /*display: none;*/
+}
+
+.hidden {
+  display: none;
+}
+
+.attributeMinMaxDiv input{
+  width: 25%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#polygonClassList {
+  max-height: 250px;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#attributeListContainer {
+  max-height: 50vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.breakline {
+  color: white;
+  opacity: 1;
+  border: 0.5px solid white;
+}
+
+.attributeExampleText {
+  float:right;
+  margin: 0 !important;
+}
+
+.progress-bar.animate {
+  width: 0%;
+}
+
+.attributeList.checked {
+  background-color: #b0c5e8;
+}
+
+#attributesModalDialog {
+  max-width: 65vw !important;
+}
+
+.attributeListDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+.popover {
+  width: 230px;
+}
+.fixedwidth {
+  width: 208px;
+  margin-bottom: 5px;
+  margin-left: 16px;
+  margin-top: 5px;
+}
+
+.networkBtnPairs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.networkBtnPairs * {
+  width: 100px;
+}
+
+.inputLists input, .inputLists select {
+  width: 225px;
+}
+
+.inputLists * {
+  margin-left: 10px;
+}
+
+.epochLearningRate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputLists .epochLearningRate * {
+  width: 110px ;
+  margin-left: -5px;
+}
+
+#setting{
+  margin-top: -90px;
+  margin-right: 10px;
+}
+
+#information {
+  margin-top: -90px;
+  margin-right: 60px;
+
+}
+.settingAlignButton button{
+  border: none;
+  width: 40px;
+}
+
+.informationAlignButton button{
+  border: none;
+  width: 40px;
+}
+
+#uploadTrainedNetworkSelectors {
+  display: block !important;
+}
