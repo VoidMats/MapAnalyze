@@ -17,7 +17,7 @@ class Topowebb {
   }
 
   getLayer(name) {
-    const apiKey = 'c04e4884-731b-33a4-a6b6-a652286186bf';
+    const apiKey = 'some-api-key';
     return new TileLayer({
       extent: this._extent,
       source: new WMTS({
